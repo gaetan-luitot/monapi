@@ -1,25 +1,26 @@
 <template>
   <div class="add-category">
     <h1>Add Category</h1>
+
     <form id="form" @submit.prevent="CheckForm">
-      <p v-if="errors && errors.length > 0">
-        <b>Please correct the following error(s):</b>
-        <ul>
-          <li v-for="error in errors" v-bind:key="error">
-            {{ error }}
-          </li>
-        </ul>
-      </p>
+      <div class="row j-c-center">
+        <div v-if="errors && errors.length" class="alert alert-error col c6">
+          <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
+        </div>
+
+        <div v-if="success && success.length" class="alert alert-success col c6">
+          {{ success }}
+        </div>
+      </div>
 
       <div>
         <label for="name">Name : </label>
-        <input id="name" v-model="name" type="text" name="name">
+        <input class="form-control" id="name" v-model="name" type="text" name="name">
       </div>
 
       <p>
-        <input type="submit" value="Créer">
+        <button class="btn" type="submit">Create</button>
       </p>
-
     </form>
   </div>
 </template>

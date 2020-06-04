@@ -2,11 +2,14 @@
 export default {
   data: () => ({
     errors: [],
+    success: '',
     name: null,
   }),
   methods: {
     async CheckForm(e) {
       this.errors = [];
+      this.success = '';
+
       if (!this.name) {
         this.errors.push('Name required.');
       } else {
@@ -19,8 +22,8 @@ export default {
         }
       }
 
-
       if (this.errors.length <= 0) {
+        this.success = 'Category successfully created!';
         return this.CreateCategory();
       }
       return e.preventDefault();
