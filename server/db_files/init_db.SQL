@@ -2,11 +2,11 @@
 -- BDD-monapi
 -- -----------------------------------------------------------------------------
 
-CREATE DATABASE monapibdd;
+CREATE DATABASE forandrabdd;
 
-CREATE USER 'monapi_user'@'localhost' IDENTIFIED BY 'fd6ed2f62ded1c334a383aab63d243e36fe46dccef1c1f26a3775cd16854e159';
+CREATE USER 'forandra_user'@'localhost' IDENTIFIED BY '550937c2b72fbc41c957d95c000d8ad0d1a51c73c59c393bf24410f6a3b3557a';
 
-GRANT ALL PRIVILEGES ON monapibdd.* TO 'monapi_user'@'localhost';
+GRANT ALL PRIVILEGES ON forandrabdd.* TO 'forandra_user'@'localhost';
 
 FLUSH PRIVILEGES;
 
@@ -23,7 +23,7 @@ CREATE TABLE user
 (
     user_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL UNIQUE,
-    password VARCHAR(50) NOT NULL,
+    password VARCHAR(50) NOT NULL
 );
 
 -- Category :
