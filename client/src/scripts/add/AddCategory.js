@@ -1,46 +1,33 @@
 
 export default {
-  data: () => ({
-    errors: [],
-    success: '',
-    name: null,
-  }),
-  methods: {
-    async CheckForm(e) {
-      this.errors = [];
-      this.success = '';
+    data: () => ({
+        errors: [],
+        success: '',
+        name: null,
+    }),
+    methods: {
+        async CheckForm(e) {
+            this.errors = [];
+            this.success = '';
 
-      if (!this.name) {
-        this.errors.push('Name required.');
-      } else {
-        let nameExist = await this.CheckName();
-        nameExist = await nameExist.json();
-        if (!nameExist.success) {
-          this.errors.push(`${nameExist.error}`);
-        } else if (nameExist.data.exist) {
-          this.errors.push('This name is already used.');
-        }
-      }
-
-      if (this.errors.length <= 0) {
-        this.success = 'Category successfully created!';
-        return this.CreateCategory();
-      }
-      return e.preventDefault();
+            if (this.name) {
+                const res = await (await this.CreateCategory()).json();
+                if (res.success) {
+                    this.success = 'Category successfully created!';
+                    return res;
+                }
+                this.errors.push(res.error);
+            } else {
+                this.errors.push('Name required.');
+            }
+            return e.preventDefault();
+        },
+        async CreateCategory() {
+            return fetch('http://localhost:4000/category', {
+                method: 'POST',
+                body: JSON.stringify({ name: this.name }),
+                headers: { 'content-type': 'application/json' },
+            });
+        },
     },
-    CreateCategory() {
-      return fetch('http://localhost:4000/add/category', {
-        method: 'POST',
-        body: JSON.stringify({ name: this.name }),
-        headers: { 'content-type': 'application/json' },
-      });
-    },
-    CheckName() {
-      return fetch('http://localhost:4000/category/check_name', {
-        method: 'POST',
-        body: JSON.stringify({ name: this.name }),
-        headers: { 'content-type': 'application/json' },
-      });
-    },
-  },
 };

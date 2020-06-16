@@ -44,10 +44,14 @@ app.use(
 );
 
 // Loading controllers :
+/** @Todo : output the loading progress only if debug == true **/
+// console.log('Loading controllers : ');
 for (var i = 0; i < controllers.length; ++i) {
-    let routeName = controllers[i].split('.js');
+    const controller = controllers[i].split('.js')[0];
+    const routeName = controller.split('Controller')[0].toLowerCase();
+    // console.log(' * ', routeName);
     if (routeName.length > 0) {
-      app.use('/' + routeName[0], require('./controller/' + routeName[0]));
+      app.use('/' + routeName, require('./controller/' + controller));
     }
 
 }

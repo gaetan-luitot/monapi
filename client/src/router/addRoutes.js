@@ -8,36 +8,36 @@ import AddOperator from '../views/add/AddOperator.vue';
 
 
 const AddRoutes = {
-  routes: {
-    path: '/add',
-    component: Add,
-    children: [
-      {
-        path: '',
-        component: AddHome,
-      },
-      {
-        path: 'category',
-        component: AddCategory,
-      },
-      {
-        path: 'operator',
-        component: AddOperator,
-      },
-      {
-        path: 'account',
-        component: AddAccount,
-      },
-      {
-        path: 'mean',
-        component: AddMean,
-      },
-      {
-        path: 'flow',
-        component: AddFlow,
-      },
-    ],
-  },
+    routes: {
+        path: '/add',
+        component: Add,
+        children: [
+            {
+                path: '',
+                component: AddHome,
+            },
+            {
+                path: 'category',
+                component: AddCategory,
+            },
+            {
+                path: 'operator',
+                component: AddOperator,
+            },
+            {
+                path: 'account',
+                component: AddAccount,
+            },
+            {
+                path: 'mean',
+                component: AddMean,
+            },
+            {
+                path: 'flow',
+                component: AddFlow,
+            },
+        ],
+    },
 };
 
 export default AddRoutes;
