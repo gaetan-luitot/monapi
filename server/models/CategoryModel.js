@@ -1,4 +1,4 @@
-const db = require('../config/DataBase');  /** @Todo : include this for all models **/
+const Database = require('../helpers/DatabaseHelper');  /** @Todo : include this for all models **/
 
 class CategoryModel {
 
@@ -8,7 +8,7 @@ class CategoryModel {
 
     static async CheckNameExist(name) {
         try {
-            let rows = await db(`SELECT name FROM category WHERE name = '${name}';`);
+            let rows = await Database.db(`SELECT name FROM category WHERE name = '${name}';`);
             console.log(r)
             return { success: true, error: '', data: { exist: !!rows[0] } };
         } catch (e) {
@@ -18,16 +18,10 @@ class CategoryModel {
 
     static async CreateCategory(category) {
         try {
-            let rows = await db(`INSERT INTO category VALUES(DEFAULT, '${category.name}');`);
+            let rows = await Database.db(`INSERT INTO category VALUES(DEFAULT, '${category.name}');`);
             return { success: true, error: '', data: { exist: !!rows[0] } };
         } catch (e) {
-            switch (e.errno) {
-                case 1062:
-                    return { success: false, error: 'This Category already exist.', data: null };
-                default:
-                    console.log(e);
-                    return { success: false, error: 'Can\'t create category.', data: null };
-            }
+            return Database.errorHandler(e.errno, 'Category', e.sqlMessage);
         }
     }
 
