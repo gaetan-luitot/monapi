@@ -1,8 +1,8 @@
-const CategoryModel = require('../models/CategoryModel');
+import { CategoryModel } from '../models/CategoryModel';
 
-class CategoryService {
+export class CategoryService {
 
-  static async CheckNameExist(body) {
+  static async CheckNameExist(body: any) {
     if (body.name) {
       return await CategoryModel.CheckNameExist(body.name);
     }
@@ -15,7 +15,7 @@ class CategoryService {
   }
 
 
-  static async CreateCategory(category) {
+  static async CreateCategory(category: any) {
     if (category.name) {
       return await CategoryModel.CreateCategory(category);
     }
@@ -28,5 +28,3 @@ class CategoryService {
   }
 
 }
-
-module.exports = CategoryService;
