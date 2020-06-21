@@ -1,6 +1,6 @@
 import { DatabaseHelper } from '../helpers/DatabaseHelper';  /** @Todo : include this for all models **/
-import { DatabaseConfig } from '../config/DatabaseConfig';  /** @Todo : include this for all models **/
-
+// import { DatabaseConfig } from '../config/DatabaseConfig';  /** @Todo : include this for all models **/
+import { query } from '../config/Database';
 
 export class CategoryModel {
 
@@ -10,7 +10,7 @@ export class CategoryModel {
 
     static async CheckNameExist(name: string) {
         try {
-            const rows: any = await DatabaseConfig.instance.query(`SELECT name FROM category WHERE name = '${name}';`);
+            const rows: any = await query(`SELECT name FROM category WHERE name = '${name}';`);
             console.log(rows);
             return { success: true, error: '', data: { exist: !!rows } };
         } catch (e) {
@@ -20,7 +20,7 @@ export class CategoryModel {
 
     static async CreateCategory(category: any /** @Todo: DTO **/) {
         try {
-            const rows: any = await DatabaseConfig.instance.query(`INSERT INTO category VALUES(DEFAULT, '${category.name}');`);
+            const rows: any = await query(`INSERT INTO category VALUES(DEFAULT, '${category.name}');`);
             return { success: true, error: '', data: rows[0] };
         } catch (e) {
             console.log(e);

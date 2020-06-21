@@ -4,7 +4,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const {readdirSync} = require('fs');
-import {DatabaseConfig} from './config/DatabaseConfig';
+//require('dotenv').config();
 
 // Self Imports :
 //const moduleFolder = './modules';
@@ -34,13 +34,6 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Set Database
-DatabaseConfig.setIConfig({
-    host: 'localhost',
-    port: 3306,
-    user: 'monapi_user',
-    password: 'fd6ed2f62ded1c334a383aab63d243e36fe46dccef1c1f26a3775cd16854e159',
-    database : 'monapibdd',
-});
 
 // Loading controllers :
 /** @Todo : output the loading progress only if debug == true **/

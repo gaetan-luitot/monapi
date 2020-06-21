@@ -13,7 +13,7 @@ export class DatabaseConfig {
     private database: string;
 
     private con: any;
-    public query: any;;
+    public query: any;
 
 
     private constructor(user: string, password: string, database: string, host: string = 'localhost', port: number = 3306) {
