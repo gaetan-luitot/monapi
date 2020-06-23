@@ -5,6 +5,11 @@ var express = require('express');
 var router = express.Router();
 
 
+// Get All Categories :
+router.get('/', async function (req: any, res: any) {
+    return res.json({success: true, data: ['1', '2']});
+});
+
 // Add Category :
 router.post('/', async function (req: any, res: any) {
     return res.json(await CategoryService.CreateCategory(req.body));
