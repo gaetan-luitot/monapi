@@ -1,30 +1,33 @@
 import { CategoryModel } from '../models/CategoryModel';
+import { IOut } from '../interfaces/IOut';
 
 export class CategoryService {
 
-  static async CheckNameExist(body: any) {
-    if (body.name) {
-      return await CategoryModel.CheckNameExist(body.name);
+    static async CheckNameExist(body: any): Promise<IOut> {
+        if (body.name) {
+            return await CategoryModel.CheckNameExist(body.name);
+        }
+
+        return {
+            code: 500,
+            success: false,
+            info: 'No name provided.',
+            data: null,
+        };
     }
 
-    return {
-      success: false,
-      error: 'No name provided.',
-      data: null,
-    };
-  }
 
+    static async CreateCategory(category: any): Promise<IOut> {
+        if (category.name) {
+            return await CategoryModel.CreateCategory(category);
+        }
 
-  static async CreateCategory(category: any) {
-    if (category.name) {
-      return await CategoryModel.CreateCategory(category);
+        return {
+            code: 500,
+            success: false,
+            info: 'No name provided.',
+            data: null,
+        };
     }
-
-    return {
-      success: false,
-      error: 'No name provided.',
-      data: null,
-    };
-  }
 
 }

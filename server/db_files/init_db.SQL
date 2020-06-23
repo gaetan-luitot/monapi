@@ -26,6 +26,8 @@ CREATE TABLE user
     password VARCHAR(50) NOT NULL
 );
 
+INSERT INTO user VALUES(DEFAULT, 'default', 'user');
+
 -- Category :
 CREATE TABLE category
 (

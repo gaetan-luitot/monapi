@@ -1,10 +1,12 @@
+import { IOut } from '../interfaces/IOut';
+
 export class DatabaseHelper {
     // Private :
-    static _makeReturn(info: string) {
-        return { success: false, error: info, data: null };
+    static async _makeReturn(info: string): Promise<IOut> {
+        return { code: 500, success: false, info: info, data: null };
     }
 
-    static _switchErrno(errno: number, what: string, info: string) {
+    static async _switchErrno(errno: number, what: string, info: string): Promise<string> {
         switch (errno) {
             case 1062:
                 return `This ${what} already exist.`;
@@ -15,9 +17,9 @@ export class DatabaseHelper {
 
     // Public :
 
-    static errorHandler (errno: number, what: string, info: string = '') {
+    static async errorHandler (errno: number, what: string, info: string = ''): Promise<IOut> {
         return DatabaseHelper._makeReturn(
-            DatabaseHelper._switchErrno(errno, what, info)
+            await DatabaseHelper._switchErrno(errno, what, info)
         );
     }
 }

@@ -3,7 +3,7 @@ import util from 'util';
 
 require('dotenv').config();
 
-const con = mariadb.createPool({
+export const con = mariadb.createPool({
     host: process.env.DB_HOST,
     port: Number(process.env.DB_PORT),
     user: process.env.DB_USER,
@@ -12,4 +12,4 @@ const con = mariadb.createPool({
     connectionLimit: 5, /** @Todo : Is it useful ? **/
 });
 
-export const query = util.promisify(con.query).bind(con);
+//export const aquery = util.promisify(con.query);

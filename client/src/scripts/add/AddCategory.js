@@ -16,7 +16,7 @@ export default {
                     this.success = 'Category successfully created!';
                     return res;
                 }
-                this.errors.push(res.error);
+                this.errors.push(res.info);
             } else {
                 this.errors.push('Name required.');
             }
