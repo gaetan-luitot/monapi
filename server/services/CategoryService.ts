@@ -1,15 +1,22 @@
 import { CategoryModel } from '../models/CategoryModel';
-import { IOut } from '../interfaces/IOut';
+import { IOut } from '../dtos/IOut';
+import { ICategoryInDTO } from '../dtos/ICategoryDTO';
 
 export class CategoryService {
 
-    static async GetAllCategories(): Promise<IOut> {
-        return await CategoryModel.GetAllCategories();
+    static async GetAllCategoriesName(): Promise<IOut> {
+        let categories = await CategoryModel.GetAllCategories();
+        let data: string[] = [];
+        for (let i = 0; i < categories.data.length; ++i) {
+            data.push(categories.data[i].name);
+        }
+        categories.data = data;
+        return categories;
     }
 
     static async CheckNameExist(body: any): Promise<IOut> {
         if (body.name) {
-            return await CategoryModel.CheckNameExist(body.name);
+            return CategoryModel.GetByName(body.name);
         }
 
         return {
@@ -20,9 +27,10 @@ export class CategoryService {
         };
     }
 
-    static async CreateCategory(category: any): Promise<IOut> {
-        if (category.name) {
-            return await CategoryModel.CreateCategory(category);
+    static async CreateCategory(body: any): Promise<IOut> {
+        if (body.name) {
+            const categoryDTO: ICategoryInDTO = { name: body.name, userId: 1 };
+            return CategoryModel.CreateCategory(categoryDTO);
         }
 
         return {

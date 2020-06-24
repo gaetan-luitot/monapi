@@ -11,7 +11,7 @@ export default {
         category: null,
     }),
     methods: {
-        async CheckForm(e) {
+        async CheckForm() {
             this.errors = [];
             this.success = '';
 
@@ -23,13 +23,21 @@ export default {
             }
 
             if (this.errors.length <= 0) {
-                return operatorService.createOperator(this.operatorName, this.category);
+                const result = await (await operatorService.createOperator(
+                    this.operatorName, this.category,
+                )).json();
+
+                if (result.success) {
+                    this.success = 'Operator successfully created!';
+                    return true;
+                }
+                this.errors.push(result.info);
             }
 
-            return e.preventDefault();
+            return true;
         },
         async loadCategory() {
-            const result = await (await categoryService.getAllCategories()).json();
+            const result = await (await categoryService.getAllCategoriesName()).json();
             if (result.success) {
                 this.categories = result.data;
             } else {
@@ -38,7 +46,7 @@ export default {
 
             return result.success;
         },
-        autocomplete(inp, arr) {
+        autocomplete(inp, arr, event) {
             /*  the autocomplete function takes two arguments,
             the text field element and an array of possible autocompleted values:  */
             let currentFocus;
@@ -89,19 +97,22 @@ export default {
                 /*  for each item in the array...  */
                 for (i = 0; i < arr.length; i += 1) {
                     /*  check if the item starts with the same letters as the text field value: */
-                    if (arr[i].name.substr(0, val.length).toUpperCase() === val.toUpperCase()) {
+                    if (arr[i].substr(0, val.length).toUpperCase() === val.toUpperCase()) {
                         /* create a DIV element for each matching element: */
                         b = document.createElement('DIV');
                         /* make the matching letters bold: */
-                        b.innerHTML = `<strong>${arr[i].name.substr(0, val.length)}</strong>`;
-                        b.innerHTML += arr[i].name.substr(val.length);
+                        b.innerHTML = `<strong>${arr[i].substr(0, val.length)}</strong>`;
+                        b.innerHTML += arr[i].substr(val.length);
                         /* insert a input field that will hold the current array item's value: */
-                        b.innerHTML += `<input type='hidden' value='${arr[i].name}'>`;
+                        b.innerHTML += `<input type='hidden' value='${arr[i]}'>`;
                         /* execute a function when
                         someone clicks on the item value (DIV element): */
                         b.addEventListener('click', (e) => {
                             /* insert the value for the autocomplete text field: */
+                            console.log('=>', e.target.lastChild.value);
                             inp.value = e.target.lastChild.value;
+                            // inp.afterUpdate();
+                            inp.dispatchEvent(event);
                             // this.category = e.target.lastChild.value;
                             /* close the list of autocompleted values,
                             (or any other open lists of autocompleted values: */
@@ -133,11 +144,10 @@ export default {
                     if (x.length) addActive(x);
                 } else if (e.keyCode === 9) {
                     /* If the ENTER key is pressed, prevent the form from being submitted, */
-                    e.preventDefault();
+                    // e.preventDefault();
                     if (currentFocus > -1) {
                         /* and simulate a click on the 'active' item: */
                         if (x) x[currentFocus].click();
-                        this.category = inp.value;
                     }
                 }
             });
@@ -148,10 +158,15 @@ export default {
         },
     },
     async mounted() {
+        const event = new Event('afterUpdate');
         await this.loadCategory();
-        console.log('categories', this.categories);
-        if (this.categories.length || document.getElementById('input-category-name')) {
-            this.autocomplete(document.getElementById('input-category-name'), this.categories);
+        const input = document.getElementById('input-category-name');
+        if (this.categories.length || input) {
+            this.autocomplete(input, this.categories, event);
+            input.addEventListener('afterUpdate', () => {
+                console.log('A');
+                this.category = input.value;
+            });
         }
     },
 };

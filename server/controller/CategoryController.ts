@@ -1,13 +1,13 @@
 // CategoryController.js - CategoryController route module.
 import { CategoryService } from '../services/CategoryService';
-import { IOut } from '../interfaces/IOut';
+import { IOut } from '../dtos/IOut';
 var express = require('express');
 var router = express.Router();
 
 
 // Get All Categories :
-router.get('/', async function (req: any, res: any) {
-    return res.json(await CategoryService.GetAllCategories());
+router.get('/names', async function (req: any, res: any) {
+    return res.json(await CategoryService.GetAllCategoriesName());
 });
 
 // Add Category :

@@ -1,4 +1,4 @@
-import { IOut } from '../interfaces/IOut';
+import { IOut } from '../dtos/IOut';
 
 export class DatabaseHelper {
     // Private :
@@ -11,6 +11,7 @@ export class DatabaseHelper {
             case 1062:
                 return `This ${what} already exist.`;
             default:
+                console.log(info);
                 return `[Error] ${what}: ${info}.`;
         }
     }

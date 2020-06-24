@@ -1,5 +1,5 @@
-async function GetAllCategories() {
-    return fetch('http://localhost:4000/category', {
+async function GetAllCategoriesName() {
+    return fetch('http://localhost:4000/category/names', {
         method: 'get',
         headers: { 'content-type': 'application/json' },
     });
@@ -14,6 +14,6 @@ async function CreateCategory(categoryName) {
 }
 
 module.exports = {
-    getAllCategories: GetAllCategories,
+    getAllCategoriesName: GetAllCategoriesName,
     createCategory: CreateCategory,
 };
