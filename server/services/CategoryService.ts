@@ -3,6 +3,10 @@ import { IOut } from '../interfaces/IOut';
 
 export class CategoryService {
 
+    static async GetAllCategories(): Promise<IOut> {
+        return await CategoryModel.GetAllCategories();
+    }
+
     static async CheckNameExist(body: any): Promise<IOut> {
         if (body.name) {
             return await CategoryModel.CheckNameExist(body.name);
@@ -15,7 +19,6 @@ export class CategoryService {
             data: null,
         };
     }
-
 
     static async CreateCategory(category: any): Promise<IOut> {
         if (category.name) {

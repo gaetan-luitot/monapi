@@ -14,26 +14,32 @@ const AddRoutes = {
         children: [
             {
                 path: '',
+                name: 'AddHome',
                 component: AddHome,
             },
             {
                 path: 'category',
+                name: 'AddCategory',
                 component: AddCategory,
             },
             {
                 path: 'operator',
+                name: 'AddOperator',
                 component: AddOperator,
             },
             {
                 path: 'account',
+                name: 'AddAccount',
                 component: AddAccount,
             },
             {
                 path: 'mean',
+                name: 'AddMean',
                 component: AddMean,
             },
             {
                 path: 'flow',
+                name: 'AddFlow',
                 component: AddFlow,
             },
         ],

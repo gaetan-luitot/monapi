@@ -7,7 +7,7 @@ var router = express.Router();
 
 // Get All Categories :
 router.get('/', async function (req: any, res: any) {
-    return res.json({success: true, data: ['1', '2']});
+    return res.json(await CategoryService.GetAllCategories());
 });
 
 // Add Category :

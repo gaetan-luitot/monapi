@@ -15,7 +15,8 @@
 
       <div>
         <label for="name">Name : </label>
-        <input class="form-control" id="name" v-model="name" type="text" name="name">
+        <input class="form-control" id="name" v-model="name" type="text"
+        name="name" autocomplete="off">
       </div>
 
       <p>

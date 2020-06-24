@@ -1,18 +1,35 @@
 // import autocomplete from '../autocomplete/autocomplete';
-import getAllCategories from '../../services/CategoryService';
+const categoryService = require('../../services/CategoryService');
+const operatorService = require('../../services/OperatorService');
 
 export default {
     data: () => ({
         errors: [],
         success: '',
-        name: null,
+        operatorName: null,
         categories: [],
         category: null,
-        countries: ['Ayayayahhh', 'Aya'],
     }),
     methods: {
+        async CheckForm(e) {
+            this.errors = [];
+            this.success = '';
+
+            if (!this.operatorName) {
+                this.errors.push('Name required.');
+            }
+            if (!this.category) {
+                this.errors.push('Category required.');
+            }
+
+            if (this.errors.length <= 0) {
+                return operatorService.createOperator(this.operatorName, this.category);
+            }
+
+            return e.preventDefault();
+        },
         async loadCategory() {
-            const result = await (await getAllCategories()).json();
+            const result = await (await categoryService.getAllCategories()).json();
             if (result.success) {
                 this.categories = result.data;
             } else {
@@ -58,7 +75,6 @@ export default {
             function updateList() {
                 let b;
                 let i;
-                // const input = document.getElementById('myInput');
                 const val = inp.value;
                 /*  close any already open lists of autocompleted values  */
                 closeAllLists();
@@ -73,19 +89,20 @@ export default {
                 /*  for each item in the array...  */
                 for (i = 0; i < arr.length; i += 1) {
                     /*  check if the item starts with the same letters as the text field value: */
-                    if (arr[i].substr(0, val.length).toUpperCase() === val.toUpperCase()) {
+                    if (arr[i].name.substr(0, val.length).toUpperCase() === val.toUpperCase()) {
                         /* create a DIV element for each matching element: */
                         b = document.createElement('DIV');
                         /* make the matching letters bold: */
-                        b.innerHTML = `<strong>${arr[i].substr(0, val.length)}</strong>`;
-                        b.innerHTML += arr[i].substr(val.length);
+                        b.innerHTML = `<strong>${arr[i].name.substr(0, val.length)}</strong>`;
+                        b.innerHTML += arr[i].name.substr(val.length);
                         /* insert a input field that will hold the current array item's value: */
-                        b.innerHTML += `<input type='hidden' value='${arr[i]}'>`;
+                        b.innerHTML += `<input type='hidden' value='${arr[i].name}'>`;
                         /* execute a function when
                         someone clicks on the item value (DIV element): */
                         b.addEventListener('click', (e) => {
                             /* insert the value for the autocomplete text field: */
                             inp.value = e.target.lastChild.value;
+                            // this.category = e.target.lastChild.value;
                             /* close the list of autocompleted values,
                             (or any other open lists of autocompleted values: */
                             closeAllLists();
@@ -93,7 +110,7 @@ export default {
                         a.appendChild(b);
                     }
                 }
-                return true;
+                return inp.value;
             }
 
             /*  execute a function when someone writes in the text field:  */
@@ -107,19 +124,20 @@ export default {
                     increase the currentFocus letiable: */
                     currentFocus += 1;
                     /* and and make the current item more visible: */
-                    addActive(x);
+                    if (x.length) addActive(x);
                 } else if (e.keyCode === 38) { // up
                     /* If the arrow UP key is pressed,
                     decrease the currentFocus letiable: */
                     currentFocus -= 1;
                     /* and and make the current item more visible: */
-                    addActive(x);
-                } else if (e.keyCode === 13) {
+                    if (x.length) addActive(x);
+                } else if (e.keyCode === 9) {
                     /* If the ENTER key is pressed, prevent the form from being submitted, */
                     e.preventDefault();
                     if (currentFocus > -1) {
                         /* and simulate a click on the 'active' item: */
                         if (x) x[currentFocus].click();
+                        this.category = inp.value;
                     }
                 }
             });
@@ -129,11 +147,11 @@ export default {
             });
         },
     },
-    async created() {
+    async mounted() {
         await this.loadCategory();
-        // console.log('categories', this.categories);
-    },
-    mounted() {
-        this.autocomplete(document.getElementById('myInput'), this.countries);
+        console.log('categories', this.categories);
+        if (this.categories.length || document.getElementById('input-category-name')) {
+            this.autocomplete(document.getElementById('input-category-name'), this.categories);
+        }
     },
 };

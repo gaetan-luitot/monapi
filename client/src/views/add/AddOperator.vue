@@ -13,20 +13,20 @@
         </div>
       </div>
 
-      <div>
-        <label for="name">Name : </label>
-        <input class="form-control" id="name" v-model="name" type="text" name="name">
-      </div>
-      <div>
-        <label for="category">Category : </label>
-        <!--<div class="autocomplete">
-          <input class="form-control" id="category-input" v-model="category"
-          type="text" name="category">
-        </div>-->
-        <div class="autocomplete" style="width:300px;">
-          <input id="myInput" type="text" name="myCountry" placeholder="Country">
-        </div>
-      </div>
+      <ul>
+        <li>
+          <div class="" style="width:300px;">
+            <input id="input-operator-name" type="text" name="operator-name"
+            v-model="operatorName" placeholder="Name" autocomplete="off">
+          </div>
+        </li>
+        <li>
+          <div class="autocomplete" style="width:300px;">
+            <input id="input-category-name" type="text" name="category-name"
+            v-model="category" placeholder="Category" autocomplete="off">
+          </div>
+        </li>
+      </ul>
 
       <p>
         <button class="btn" type="submit">Create</button>
@@ -40,4 +40,5 @@
 
 <style lang="scss">
 @import "../../assets/scss/autocomplete.scss";
+@import "../../assets/scss/form.scss";
 </style>

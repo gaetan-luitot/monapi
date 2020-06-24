@@ -9,9 +9,18 @@ export class CategoryModel {
 
     }
 
+    static async GetAllCategories() {
+        try {
+            const rows: any = await con.query(`SELECT category_id, name FROM category WHERE user_id = 1;`);
+            return { code: 200, success: true, info: '', data: rows };
+        } catch (e) {
+            return { code: 500, success: false, info: 'Can\'t find categories', data: null };
+        }
+    }
+
     static async CheckNameExist(name: string) {
         try {
-            const rows: any = await con.query(`SELECT name FROM category WHERE name = '${name}';`);
+            const rows: any = await con.query(`SELECT name FROM category WHERE name = '${name}' AND user_id = 1;`);
             return { code: 200, success: true, info: '', data: { exist: !!rows } };
         } catch (e) {
             return { code: 500, success: false, info: 'Can\'t find category', data: null };

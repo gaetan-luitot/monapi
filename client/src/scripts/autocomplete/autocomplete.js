@@ -48,7 +48,6 @@ function autocomplete(inp, arr) {
         /*  append the DIV element as a child of the autocomplete container:  */
         this.parentNode.appendChild(a);
         /*  for each item in the array...  */
-        let newValue;
         for (i = 0; i < arr.length; i += 1) {
             /*  check if the item starts with the same letters as the text field value: */
             if (arr[i].substr(0, val.length).toUpperCase() === val.toUpperCase()) {
@@ -59,10 +58,12 @@ function autocomplete(inp, arr) {
                 b.innerHTML += arr[i].substr(val.length);
                 /* insert a input field that will hold the current array item's value: */
                 b.innerHTML += `<input type='hidden' value='${arr[i]}'>`;
+                console.log('.');
                 /* execute a function when someone clicks on the item value (DIV element): */
                 b.addEventListener('click', () => {
                     /* insert the value for the autocomplete text field: */
                     inp.value = this.getElementsByTagName('input')[0].value;
+                    console.log('Changed');
                     /* close the list of autocompleted values,
                     (or any other open lists of autocompleted values: */
                     closeAllLists();
@@ -70,7 +71,7 @@ function autocomplete(inp, arr) {
                 a.appendChild(b);
             }
         }
-        return newValue;
+        return true;
     });
     /* execute a function presses a key on the keyboard: */
     inp.addEventListener('keydown', (e) => {
