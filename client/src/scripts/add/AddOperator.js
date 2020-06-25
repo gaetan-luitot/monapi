@@ -9,6 +9,8 @@ export default {
         operatorName: null,
         categories: [],
         category: null,
+        afterUpdateEvent: new Event('afterUpdate'),
+        categoryAddedEvent: new Event('categoryAdded'),
     }),
     methods: {
         async CheckForm() {
@@ -29,6 +31,9 @@ export default {
 
                 if (result.success) {
                     this.success = 'Operator successfully created!';
+                    await document.getElementById('input-category-name').dispatchEvent(this.categoryAddedEvent);
+                    this.category = '';
+                    this.operatorName = '';
                     return true;
                 }
                 this.errors.push(result.info);
@@ -79,7 +84,6 @@ export default {
                 x[currentFocus].classList.add('autocomplete-active');
                 return x;
             }
-
             function updateList() {
                 let b;
                 let i;
@@ -109,7 +113,6 @@ export default {
                         someone clicks on the item value (DIV element): */
                         b.addEventListener('click', (e) => {
                             /* insert the value for the autocomplete text field: */
-                            console.log('=>', e.target.lastChild.value);
                             inp.value = e.target.lastChild.value;
                             // inp.afterUpdate();
                             inp.dispatchEvent(event);
@@ -123,9 +126,15 @@ export default {
                 }
                 return inp.value;
             }
-
             /*  execute a function when someone writes in the text field:  */
             inp.addEventListener('input', updateList);
+
+            inp.addEventListener('categoryAdded', () => {
+                if (!arr.find((category) => category === inp.value)) {
+                    arr.push(inp.value);
+                }
+            });
+
             /* execute a function presses a key on the keyboard: */
             inp.addEventListener('keydown', (e) => {
                 let x = document.getElementById(`${inp.id}autocomplete-list`);
@@ -142,9 +151,9 @@ export default {
                     currentFocus -= 1;
                     /* and and make the current item more visible: */
                     if (x.length) addActive(x);
-                } else if (e.keyCode === 9) {
+                } else if (e.keyCode === 13 || e.keyCode === 9) {
                     /* If the ENTER key is pressed, prevent the form from being submitted, */
-                    // e.preventDefault();
+                    e.preventDefault();
                     if (currentFocus > -1) {
                         /* and simulate a click on the 'active' item: */
                         if (x) x[currentFocus].click();
@@ -158,13 +167,13 @@ export default {
         },
     },
     async mounted() {
-        const event = new Event('afterUpdate');
         await this.loadCategory();
         const input = document.getElementById('input-category-name');
         if (this.categories.length || input) {
-            this.autocomplete(input, this.categories, event);
+            this.autocomplete(
+                input, this.categories, this.afterUpdateEvent, this.categoryAddedEvent,
+            );
             input.addEventListener('afterUpdate', () => {
-                console.log('A');
                 this.category = input.value;
             });
         }

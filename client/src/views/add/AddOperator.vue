@@ -15,14 +15,14 @@
 
       <ul>
         <li>
-          <div class="" style="width:300px;">
-            <input id="input-operator-name" type="text" name="operator-name"
+          <div class="standard_input">
+            <input id="input-operator-name" class="form-control" type="text" name="operator-name"
             v-model="operatorName" placeholder="Name" autocomplete="off">
           </div>
         </li>
         <li>
-          <div class="autocomplete" style="width:300px;">
-            <input id="input-category-name" type="text" name="category-name"
+          <div class="autocomplete standard_input">
+            <input id="input-category-name" class="form-control" type="text" name="category-name"
             v-model="category" placeholder="Category" autocomplete="off">
           </div>
         </li>

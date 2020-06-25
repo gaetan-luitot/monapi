@@ -10,6 +10,8 @@ export class DatabaseHelper {
         switch (errno) {
             case 1062:
                 return `This ${what} already exist.`;
+            case 1452:
+                return `Can't apply foreign key constraint.`;
             default:
                 console.log(info);
                 return `[Error] ${what}: ${info}.`;
