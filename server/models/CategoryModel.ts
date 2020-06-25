@@ -15,7 +15,7 @@ export class CategoryModel {
 
     static async GetByName(name: string): Promise<IOut> {
         try {
-            const row: any = await con.query(`SELECT category_id, name FROM category WHERE name = '${name}' AND user_id = 1 LIMIT 1;`);
+            const row: any = await con.query(`SELECT id, name FROM category WHERE name = '${name}' AND user_id = 1 LIMIT 1;`);
             return { code: 200, success: true, info: '', data: row[0] };
         } catch (e) {
             return DatabaseHelper.errorHandler(e.errno, 'Category', e.sql);
@@ -26,7 +26,7 @@ export class CategoryModel {
         try {
             const rows: any = await con.query(`INSERT INTO category VALUES(DEFAULT, '${category.name}', ${category.userId});`);
             // console.log('rows', rows)
-            return { code: 200, success: true, info: '', data: { category_id: rows.insertId } };
+            return { code: 200, success: true, info: '', data: { id: rows.insertId } };
         } catch (e) {
             return DatabaseHelper.errorHandler(e.errno, 'Category', e.sql);
         }

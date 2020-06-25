@@ -6,7 +6,7 @@ export class OperatorModel {
 
     static async NameExist(name: string): Promise<IOut> {
         try {
-            const row: any = await con.query(`SELECT operator_id FROM operator WHERE name = '${name}' AND user_id = 1 LIMIT 1;`);
+            const row: any = await con.query(`SELECT id FROM operator WHERE name = '${name}' AND user_id = 1 LIMIT 1;`);
             return { code: 200, success: true, info: '', data: {exist: !!row[0]} };
         } catch (e) {
             return DatabaseHelper.errorHandler(e.errno, 'Operator', e.sql);
