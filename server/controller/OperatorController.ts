@@ -1,12 +1,12 @@
 // OperatorController.js - CategoryController route module.
-import {CategoryService} from '../services/CategoryService';
+import {OperatorService} from '../services/OperatorService';
 var express = require('express');
 var router = express.Router();
 
 
 // Add Operator :
 router.post('/', async function (req: any, res: any) {
-  res.json('Hello');
+    return res.json(await OperatorService.CreateOperator(req.body));
 });
 
 module.exports = router;

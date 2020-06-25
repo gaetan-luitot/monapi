@@ -13,10 +13,17 @@
         </div>
       </div>
 
-      <div>
-        <label for="name">Name : </label>
-        <input class="form-control" id="name" v-model="name" type="text" name="name">
-      </div>
+      <ul>
+        <li>
+          <div>
+            <!--<label for="name">Name : </label>-->
+            <div class="standard_input">
+                <input class="form-control" id="name" v-model="name" type="text"
+                name="name" autocomplete="off" placeholder="Name">
+            </div>
+          </div>
+        </li>
+      </ul>
 
       <p>
         <button class="btn" type="submit">Create</button>
@@ -26,3 +33,6 @@
 </template>
 
 <script src='../../scripts/add/AddCategory.js'></script>
+<style>
+@import "../../assets/scss/form.scss";
+</style>
