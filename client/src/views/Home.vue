@@ -5,8 +5,6 @@
 </template>
 
 <script>
-// const API_URL = 'http://localhost:4000/add/category';
-
 
 export default {
     name: 'Home',

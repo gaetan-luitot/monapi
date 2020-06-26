@@ -1,5 +1,5 @@
 -- -----------------------------------------------------------------------------
--- BDD-monapi
+-- BDD-forandra
 -- -----------------------------------------------------------------------------
 
 CREATE DATABASE forandrabdd;
@@ -28,25 +28,15 @@ CREATE TABLE user
 
 INSERT INTO user VALUES(DEFAULT, 'default', 'user');
 
--- Category :
-CREATE TABLE category
-(
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50) NOT NULL UNIQUE,
-    user_id BIGINT NOT NULL,
-    -- CONSTRAINT
-    CONSTRAINT FK_category_user FOREIGN KEY (user_id) REFERENCES user (id)
-);
-
 -- Operator :
 CREATE TABLE operator
 (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL UNIQUE,
-    category_id BIGINT NOT NULL,
+    -- category_id BIGINT NOT NULL,
     user_id BIGINT NOT NULL,
     -- CONSTRAINT
-    CONSTRAINT FK_operator_category FOREIGN KEY (category_id) REFERENCES category (id),
+    -- CONSTRAINT FK_operator_category FOREIGN KEY (category_id) REFERENCES category (id),
     CONSTRAINT FK_operator_user FOREIGN KEY (user_id) REFERENCES user (id)
 );
 
@@ -55,7 +45,6 @@ CREATE TABLE account
 (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     operator_id BIGINT UNIQUE NOT NULL,
-    name VARCHAR(50) NOT NULL UNIQUE,
     user_id BIGINT NOT NULL,
     -- CONSTRAINT
     CONSTRAINT FK_account_operator FOREIGN KEY (operator_id) REFERENCES operator (id),
@@ -72,11 +61,22 @@ CREATE TABLE mean
     CONSTRAINT FK_mean_user FOREIGN KEY (user_id) REFERENCES user (id)
 );
 
+-- Category :
+CREATE TABLE category
+(
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL UNIQUE,
+    user_id BIGINT NOT NULL,
+    -- CONSTRAINT
+    CONSTRAINT FK_category_user FOREIGN KEY (user_id) REFERENCES user (id)
+);
+
 -- Flow :
 CREATE TABLE flow
 (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     what VARCHAR(200) NOT NULL,
+    category_id BIGINT NOT NULL,
     operator_in BIGINT NOT NULL,
     operator_out BIGINT NOT NULL,
     amount DECIMAL(10, 2) NOT NULL,
@@ -84,6 +84,7 @@ CREATE TABLE flow
     flow_date DATETIME DEFAULT CURRENT_TIMESTAMP,
     user_id BIGINT NOT NULL,
     -- CONSTRAINT
+    CONSTRAINT FK_flow_category FOREIGN KEY (category_id) REFERENCES category (id),
     CONSTRAINT FK_flow_operator_in FOREIGN KEY (operator_in) REFERENCES operator (id),
     CONSTRAINT FK_flow_operator_out FOREIGN KEY (operator_out) REFERENCES operator (id),
     CONSTRAINT FK_flow_mean FOREIGN KEY (mean_id) REFERENCES mean (id),

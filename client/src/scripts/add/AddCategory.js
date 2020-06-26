@@ -1,4 +1,4 @@
-const categoryService = require('../../services/CategoryService');
+const CategoryService = require('../../services/CategoryService');
 
 export default {
     data: () => ({
@@ -12,7 +12,7 @@ export default {
             this.success = '';
 
             if (this.name) {
-                const res = await (await categoryService.createCategory(this.name)).json();
+                const res = await (await CategoryService.createCategory(this.name)).json();
                 if (res.success) {
                     this.success = 'Category successfully created!';
                     return res;
