@@ -1,19 +1,21 @@
-async function GetAllCategoriesName() {
-    return fetch('http://localhost:4000/category/names', {
+const address = 'http://localhost:4000';
+const module = 'category';
+const route = `${address}/${module}`;
+
+async function getAllCategoriesName() {
+    return fetch(`${route}/name`, {
         method: 'get',
         headers: { 'content-type': 'application/json' },
     });
 }
 
-async function CreateCategory(categoryName) {
-    return fetch('http://localhost:4000/category', {
+async function createCategory(categoryName) {
+    return fetch(`${route}`, {
         method: 'POST',
         body: JSON.stringify({ name: categoryName }),
         headers: { 'content-type': 'application/json' },
     });
 }
 
-module.exports = {
-    getAllCategoriesName: GetAllCategoriesName,
-    createCategory: CreateCategory,
-};
+exports.getAllCategoriesName = getAllCategoriesName;
+exports.createCategory = createCategory;

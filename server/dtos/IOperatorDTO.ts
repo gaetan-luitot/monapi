@@ -1,6 +1,10 @@
-export interface IOperatorDTO {
-    id?: bigint,
+export interface IOperatorOutDTO {
+    id: number,
     name: string,
-    categoryId: bigint,
-    userId?: bigint,
+    userId: number,
+}
+
+export interface IOperatorInDTO {
+    name: string,
+    userId: number,
 }
