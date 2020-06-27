@@ -26,7 +26,6 @@ export class CategoryModel {
     static async Create(category: ICategoryInDTO): Promise<IOut> {
         try {
             const rows: any = await con.query(`INSERT INTO category VALUES(DEFAULT, '${category.name}', ${category.userId});`);
-            // console.log('rows', rows)
             return { code: 200, success: true, info: '', data: { id: rows.insertId } };
         } catch (e) {
             return DatabaseHelper.errorHandler(e.errno, 'Category', e.code);
