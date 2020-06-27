@@ -30,8 +30,21 @@ ul {
 
 li {
   list-style-type: none;
+  display: flex;
+  justify-content: center;
 }
 
 .standard_input {
-    width: 300px;
+  width: 300px;
+}
+
+.small_input {
+  width: 200px;
+}
+
+.swap {
+  user-select: none;
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 30px;
 }
