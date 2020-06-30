@@ -37,8 +37,16 @@
       "ecmaVersion": 2020
     },
     "rules": {
-      "indent": ["error", 4],
-      "no-param-reassign": ["error", { "props": false }]
+      "indent": [
+        "error",
+        4
+      ],
+      "no-param-reassign": [
+        "error",
+        {
+          "props": false
+        }
+      ]
     }
   },
   "browserslist": [
