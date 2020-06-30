@@ -10,6 +10,13 @@ async function createAccount(name) {
     });
 }
 
+async function getAccountName(accountId) {
+    return fetch(`${route}/${accountId}/name`, {
+        method: 'GET',
+        headers: { 'content-type': 'application/json' },
+    });
+}
+
 async function getAllAccountsName() {
     return fetch(`${route}/names`, {
         method: 'GET',
@@ -19,3 +26,4 @@ async function getAllAccountsName() {
 
 exports.createAccount = createAccount;
 exports.getAllAccountsName = getAllAccountsName;
+exports.getAccountName = getAccountName;

@@ -14,6 +14,16 @@ export class AccountService {
         return accounts;
     }
 
+    static async GetName(params: any): Promise<IOut> {
+        if(params.account_id) {
+            return AccountModel.GetName(+params.account_id);
+        }
+
+        return {
+            code: 500, success: false, info: 'Bad params provided.', data: null,
+        };
+    }
+
     static async Create(body: any): Promise<IOut> {
         try {
             // Check -> Account Already Exist :

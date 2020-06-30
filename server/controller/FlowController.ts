@@ -10,7 +10,7 @@ router.post('/', async function (req: any, res: any) {
 });
 
 // Get Flow By Month From Year :
-router.get('/year/:year', async function (req: any, res: any) {
+router.get('/year/:operator/:year', async function (req: any, res: any) {
     return res.json(await FlowService.GetMonthsFromYear(req.params));
 });
 

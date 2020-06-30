@@ -13,7 +13,7 @@ const ViewRoutes = {
                 component: ViewHome,
             },
             {
-                path: ':year',
+                path: ':accountId/:year',
                 name: 'ViewYear',
                 component: viewYear,
             },

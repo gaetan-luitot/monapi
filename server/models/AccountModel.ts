@@ -31,6 +31,19 @@ export class AccountModel {
         }
     }
 
+    static async GetName(accountId: number): Promise<IOut> {
+        try {
+            const row: any = await con.query(`
+                SELECT O.name FROM account A
+                INNER JOIN operator O ON A.operator_id = O.id AND A.user_id = O.user_id
+                WHERE A.id = '${accountId}' AND A.user_id = 1 LIMIT 1;`
+            );
+            return { code: 200, success: true, info: '', data: row[0] };
+        } catch (e) {
+            return DatabaseHelper.errorHandler(e.errno, 'Account', e.code);
+        }
+    }
+
     static async Create(account: IAccountInDTO): Promise<IOut> {
         try {
             const rows: any = await con.query(

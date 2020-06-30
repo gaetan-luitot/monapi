@@ -15,4 +15,10 @@ router.get('/names', async function (req: any, res: any) {
     return res.status(result.code).json(result);
 });
 
+// Get Account Name :
+router.get('/:account_id/name', async function (req: any, res: any) {
+    const result = await AccountService.GetName(req.params);
+    return res.status(result.code).json(result);
+});
+
 module.exports = router;

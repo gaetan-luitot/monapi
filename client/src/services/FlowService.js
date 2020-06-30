@@ -20,7 +20,7 @@ async function createFlow(_what, _account, _operator, _to, _category, _amount, _
 }
 
 async function loadForYear(year) {
-    return fetch(`${route}/year/${year}`, {
+    return fetch(`${route}/year/1/${year}`, {
         method: 'GET',
         headers: { 'content-type': 'application/json' },
     });

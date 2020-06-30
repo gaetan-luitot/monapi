@@ -9,13 +9,12 @@ import { MeanChecker } from './checkers/MeanChecker';
 export class FlowService {
 
     static async GetMonthsFromYear(params: any): Promise<IOut> {
-        if(params.year) {
-            const months = await FlowModel.GetMonthsFromYear(+params.year);
-            return months;
+        if(params.year && params.operator) {
+            return FlowModel.GetMonthsFromYear(+params.operator, +params.year);
         }
 
         return {
-            code: 500, success: false, info: 'No year provided in params.', data: null,
+            code: 500, success: false, info: 'Bad params provided.', data: null,
         };
     }
 
