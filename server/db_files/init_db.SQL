@@ -2,15 +2,6 @@
 -- BDD-forandra
 -- -----------------------------------------------------------------------------
 
-CREATE DATABASE forandrabdd;
-
-CREATE USER 'forandra_user'@'localhost' IDENTIFIED BY '550937c2b72fbc41c957d95c000d8ad0d1a51c73c59c393bf24410f6a3b3557a';
-
-GRANT ALL PRIVILEGES ON forandrabdd.* TO 'forandra_user'@'localhost';
-
-FLUSH PRIVILEGES;
-
-
 -- TO DO :
 -- -
 
@@ -19,7 +10,7 @@ FLUSH PRIVILEGES;
 -- -----------------------------------------------------------------------------
 
 -- User :
-CREATE TABLE user
+CREATE TABLE IF NOT EXISTS user
 (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL UNIQUE,
@@ -29,7 +20,7 @@ CREATE TABLE user
 INSERT INTO user VALUES(DEFAULT, 'default', 'user');
 
 -- Operator :
-CREATE TABLE operator
+CREATE TABLE IF NOT EXISTS operator
 (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL UNIQUE,
@@ -41,7 +32,7 @@ CREATE TABLE operator
 );
 
 -- Account :
-CREATE TABLE account
+CREATE TABLE IF NOT EXISTS account
 (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     operator_id BIGINT UNIQUE NOT NULL,
@@ -52,7 +43,7 @@ CREATE TABLE account
 );
 
 -- Mean :
-CREATE TABLE mean
+CREATE TABLE IF NOT EXISTS mean
 (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL UNIQUE,
@@ -62,7 +53,7 @@ CREATE TABLE mean
 );
 
 -- Category :
-CREATE TABLE category
+CREATE TABLE IF NOT EXISTS category
 (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL UNIQUE,
@@ -72,7 +63,7 @@ CREATE TABLE category
 );
 
 -- Flow :
-CREATE TABLE flow
+CREATE TABLE IF NOT EXISTS flow
 (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     what VARCHAR(200) NOT NULL,
