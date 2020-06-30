@@ -2,6 +2,13 @@ const address = 'http://localhost:4000';
 const module = 'mean';
 const route = `${address}/${module}`;
 
+async function getAllMeansName() {
+    return fetch(`${route}/names`, {
+        method: 'GET',
+        headers: { 'content-type': 'application/json' },
+    });
+}
+
 async function createMean(meanName) {
     return fetch(`${route}`, {
         method: 'POST',
@@ -11,3 +18,4 @@ async function createMean(meanName) {
 }
 
 exports.createMean = createMean;
+exports.getAllMeansName = getAllMeansName;

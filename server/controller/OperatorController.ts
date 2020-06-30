@@ -4,7 +4,7 @@ var express = require('express');
 var router = express.Router();
 
 // Get Operators Name :
-router.get('/name', async function (req: any, res: any) {
+router.get('/names', async function (req: any, res: any) {
     return res.json(await OperatorService.GetAllNames());
 });
 

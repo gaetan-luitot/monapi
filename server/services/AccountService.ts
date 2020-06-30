@@ -5,6 +5,16 @@ import { IOut } from '../dtos/IOut';
 
 export class AccountService {
 
+    static async GetAllNames(): Promise<IOut> {
+        let accounts: IOut = await AccountModel.GetAllNames();
+        let data: string[] = [];
+        for (let i = 0; i < accounts.data.length; ++i) {
+            data.push(accounts.data[i].name);
+        }
+        accounts.data = data;
+        return accounts;
+    }
+
     static async Create(body: any): Promise<IOut> {
         try {
             // Check -> Account Already Exist :

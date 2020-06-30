@@ -8,6 +8,9 @@ export class DatabaseHelper {
 
     static async _switchErrno(errno: number, what: string, info: string): Promise<string> {
         switch (errno) {
+            case 1052:
+                console.log('Ambigous field defined in query.')
+                return `A database error occured.`;
             case 1062:
                 return `This ${what} already exist.`;
             case 1452:

@@ -11,8 +11,8 @@ async function createOperator(operatorName, category) {
 }
 
 async function getAllOperatorName() {
-    return fetch(`${route}/name`, {
-        method: 'get',
+    return fetch(`${route}/names`, {
+        method: 'GET',
         headers: { 'content-type': 'application/json' },
     });
 }

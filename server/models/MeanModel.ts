@@ -5,6 +5,15 @@ import { con } from '../config/Database';
 
 export class MeanModel {
 
+    static async GetAllNames(): Promise<IOut> {
+        try {
+            const rows: any = await con.query(`SELECT name FROM mean WHERE user_id = 1;`);
+            return { code: 200, success: true, info: '', data: rows };
+        } catch (e) {
+            return DatabaseHelper.errorHandler(e.errno, 'Mean', e.code);
+        }
+    }
+
     static async Create(mean: IMeanInDTO): Promise<IOut> {
         try {
             const rows: any = await con.query(`INSERT INTO mean VALUES(DEFAULT, '${mean.name}', ${mean.userId});`);

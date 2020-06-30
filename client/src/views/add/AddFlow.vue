@@ -16,13 +16,13 @@
       <ul>
         <li>
           <div class="autocomplete small_input">
-            <input id="input-account-name" class="form-control" type="text" name="account-name"
+            <input id="input-flow-account" class="form-control" type="text" name="account-name"
             v-model="account" placeholder="Account" autocomplete="off">
           </div>
           <a v-if="to" class="swap" @click="to = false">></a>
           <a v-if="!to" class="swap" @click="to = true">&lt;</a>
           <div class="autocomplete small_input">
-            <input id="input-operator-name" class="form-control" type="text" name="operator-name"
+            <input id="input-flow-operator" class="form-control" type="text" name="operator-name"
             v-model="operator" placeholder="Operator" autocomplete="off">
           </div>
         </li>
@@ -33,7 +33,7 @@
           </div>
         </li>
         <li>
-          <div class="standard_input">
+          <div class="autocomplete standard_input">
             <input id="input-flow-category" class="form-control" type="text" name="category"
             v-model="category" placeholder="Category" autocomplete="off">
           </div>
@@ -41,12 +41,12 @@
         <li>
           <div class="standard_input">
             <input id="input-flow-amount" class="form-control" type="text" name="amount"
-            v-model="amount" placeholder="10.00 €" autocomplete="off"
+            v-model="amount" placeholder="Amount (10.00 €)" autocomplete="off"
             pattern="^[0-9]*?((,|.)([0-9]){1,2}$)">
           </div>
         </li>
         <li>
-          <div class="standard_input">
+          <div class="autocomplete standard_input">
             <input id="input-flow-mean" class="form-control" type="text" name="mean"
             v-model="mean" placeholder="Mean" autocomplete="off">
           </div>
