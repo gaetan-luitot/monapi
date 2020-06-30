@@ -1,4 +1,4 @@
-// MeanController.js - CategoryController route module.
+// MeanController.js - MeanController route module.
 import {MeanService} from '../services/MeanService';
 var express = require('express');
 var router = express.Router();

@@ -26,14 +26,11 @@ export default {
         categories: [],
         means: [],
         // Events :
+        flowCreatedEvent: new Event('flowCreated'), // Flow Created
         accountUpdatedEvent: new Event('accountUpdated'), // Account
-        accountAddedEvent: new Event('accountAdded'), // Account
         operatorUpdatedEvent: new Event('operatorUpdated'), // Operator
-        operatorAddedEvent: new Event('operatorAdded'), // Operator
         categoryUpdatedEvent: new Event('categoryUpdated'), // Category
-        categoryAddedEvent: new Event('categoryAdded'), // Category
         meanUpdatedEvent: new Event('meanUpdated'), // Mean
-        meanAddedEvent: new Event('meanAdded'), // Mean
     }),
     methods: {
         async CheckForm(e) {
@@ -65,9 +62,22 @@ export default {
                 this.errors.push('Field "Date" is required.');
             }
             if (this.errors.length <= 0) {
-                const res = await (await flowService.createFlow(this.what)).json();
+                const res = await (await flowService.createFlow(
+                    this.what,
+                    this.account,
+                    this.operator,
+                    this.to,
+                    this.category,
+                    this.amount,
+                    this.mean,
+                    this.date,
+                )).json();
                 if (res.success) {
                     this.success = 'Flow successfully created!';
+                    await document.getElementById('input-flow-account').dispatchEvent(this.flowCreatedEvent);
+                    await document.getElementById('input-flow-operator').dispatchEvent(this.flowCreatedEvent);
+                    await document.getElementById('input-flow-category').dispatchEvent(this.flowCreatedEvent);
+                    await document.getElementById('input-flow-mean').dispatchEvent(this.flowCreatedEvent);
                     return res;
                 }
                 this.errors.push(res.info);
@@ -117,7 +127,7 @@ export default {
         const accountInput = document.getElementById('input-flow-account');
         if (this.accounts.length || accountInput) {
             autocomplete(
-                accountInput, this.accounts, this.accountUpdatedEvent, 'accountAdded',
+                accountInput, this.accounts, this.accountUpdatedEvent, 'flowCreated',
             );
             accountInput.addEventListener('accountUpdated', () => {
                 this.account = accountInput.value;
@@ -128,7 +138,7 @@ export default {
         const operatorInput = document.getElementById('input-flow-operator');
         if (this.operators.length || operatorInput) {
             autocomplete(
-                operatorInput, this.operators, this.operatorUpdatedEvent, 'operatorAdded',
+                operatorInput, this.operators, this.operatorUpdatedEvent, 'flowCreated',
             );
             operatorInput.addEventListener('operatorUpdated', () => {
                 this.operator = operatorInput.value;
@@ -139,7 +149,7 @@ export default {
         const categoryInput = document.getElementById('input-flow-category');
         if (this.categories.length || categoryInput) {
             autocomplete(
-                categoryInput, this.categories, this.categoryUpdatedEvent, 'categoryAdded',
+                categoryInput, this.categories, this.categoryUpdatedEvent, 'flowCreated',
             );
             categoryInput.addEventListener('categoryUpdated', () => {
                 this.category = categoryInput.value;
@@ -150,7 +160,7 @@ export default {
         const meanInput = document.getElementById('input-flow-mean');
         if (this.means.length || meanInput) {
             autocomplete(
-                meanInput, this.means, this.meanUpdatedEvent, 'meanAdded',
+                meanInput, this.means, this.meanUpdatedEvent, 'flowCreated',
             );
             meanInput.addEventListener('meanUpdated', () => {
                 this.mean = meanInput.value;
@@ -160,7 +170,6 @@ export default {
         const amountInput = document.getElementById('input-flow-amount');
         // Set only number in the amount input :
         amountInput.addEventListener('keydown', (e) => {
-            console.log(document.getElementById('input-flow-date'));
             if (!(
                 e.ctrlKey || e.shiftKey || e.altKey
                 || (e.keyCode >= 37 && e.keyCode <= 40)

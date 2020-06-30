@@ -1,4 +1,4 @@
-// AccountController.js - CategoryController route module.
+// AccountController.js - AccountController route module.
 import {AccountService} from '../services/AccountService';
 var express = require('express');
 var router = express.Router();

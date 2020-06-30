@@ -2,13 +2,18 @@ const address = 'http://localhost:4000';
 const module = 'flow';
 const route = `${address}/${module}`;
 
-async function createFlow(flowName, opIn, opOut) {
+async function createFlow(_what, _account, _operator, _to, _category, _amount, _mean, _date) {
     return fetch(`${route}`, {
         method: 'POST',
         body: JSON.stringify({
-            name: flowName,
-            operatorIn: opIn,
-            operatorOut: opOut,
+            what: _what,
+            account: _account,
+            operator: _operator,
+            to: _to,
+            category: _category,
+            amount: _amount,
+            mean: _mean,
+            date: _date,
         }),
         headers: { 'content-type': 'application/json' },
     });

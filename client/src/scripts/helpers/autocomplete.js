@@ -90,13 +90,19 @@ function autocomplete(inp, arr, event, addedEventName) {
             increase the currentFocus letiable: */
             currentFocus += 1;
             /* and and make the current item more visible: */
-            if (x.length) addActive(x);
+            if (x && x.length) {
+                e.preventDefault();
+                addActive(x);
+            }
         } else if (e.keyCode === 38) { // up
             /* If the arrow UP key is pressed,
             decrease the currentFocus letiable: */
             currentFocus -= 1;
             /* and and make the current item more visible: */
-            if (x.length) addActive(x);
+            if (x && x.length) {
+                e.preventDefault();
+                addActive(x);
+            }
         } else if (e.keyCode === 9) {
             if (currentFocus > -1) {
                 e.preventDefault();

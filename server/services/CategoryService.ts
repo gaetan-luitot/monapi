@@ -1,6 +1,6 @@
 import { CategoryModel } from '../models/CategoryModel';
-import { IOut } from '../dtos/IOut';
 import { ICategoryInDTO } from '../dtos/ICategoryDTO';
+import { IOut } from '../dtos/IOut';
 
 export class CategoryService {
 
