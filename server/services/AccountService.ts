@@ -1,9 +1,18 @@
 import { AccountModel } from '../models/AccountModel';
-import { OperatorModel } from '../models/OperatorModel';
 import { IOut } from '../dtos/IOut';
-// import { IOperatorOutDTO } from '../dtos/IOperatorDTO';
+import { OperatorChecker } from './checkers/OperatorChecker';
 
 export class AccountService {
+
+    static async GetAllNames(): Promise<IOut> {
+        let accounts: IOut = await AccountModel.GetAllNames();
+        let data: string[] = [];
+        for (let i = 0; i < accounts.data.length; ++i) {
+            data.push(accounts.data[i].name);
+        }
+        accounts.data = data;
+        return accounts;
+    }
 
     static async Create(body: any): Promise<IOut> {
         try {
@@ -16,17 +25,11 @@ export class AccountService {
             }
 
             // Check -> Operator Already Exist :
-            let operator: IOut = await OperatorModel.GetByName(body.operatorName);
-            if (!operator.data || !operator.data.id) {
-                operator = await OperatorModel.Create({
-                    name: body.operatorName,
-                    userId: 1,
-                });
-            }
+            const opId: number = await OperatorChecker.GetIdFromName(body.operatorName);
 
             // Finaly :
             return AccountModel.Create({
-                operatorId: operator.data.id,
+                operatorId: opId,
                 userId: 1,
             });
         } catch (e) {

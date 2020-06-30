@@ -76,9 +76,10 @@ CREATE TABLE flow
 (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     what VARCHAR(200) NOT NULL,
-    category_id BIGINT NOT NULL,
+    the BIGINT NOT NULL,
     operator_in BIGINT NOT NULL,
     operator_out BIGINT NOT NULL,
+    category_id BIGINT NOT NULL,
     amount DECIMAL(10, 2) NOT NULL,
     mean_id BIGINT NOT NULL,
     flow_date DATETIME DEFAULT CURRENT_TIMESTAMP,

@@ -5,7 +5,7 @@ import { IOperatorInDTO } from '../dtos/IOperatorDTO';
 export class OperatorService {
 
     static async GetAllNames(): Promise<IOut> {
-        let operators = await OperatorModel.GetAllNames();
+        let operators: IOut = await OperatorModel.GetAllNames();
         let data: string[] = [];
         for (let i = 0; i < operators.data.length; ++i) {
             data.push(operators.data[i].name);

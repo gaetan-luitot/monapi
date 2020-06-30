@@ -3,8 +3,8 @@ const module = 'category';
 const route = `${address}/${module}`;
 
 async function getAllCategoriesName() {
-    return fetch(`${route}/name`, {
-        method: 'get',
+    return fetch(`${route}/names`, {
+        method: 'GET',
         headers: { 'content-type': 'application/json' },
     });
 }

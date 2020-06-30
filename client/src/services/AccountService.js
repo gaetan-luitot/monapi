@@ -10,4 +10,12 @@ async function createAccount(name) {
     });
 }
 
+async function getAllAccountsName() {
+    return fetch(`${route}/names`, {
+        method: 'GET',
+        headers: { 'content-type': 'application/json' },
+    });
+}
+
 exports.createAccount = createAccount;
+exports.getAllAccountsName = getAllAccountsName;

@@ -8,10 +8,13 @@ export class DatabaseHelper {
 
     static async _switchErrno(errno: number, what: string, info: string): Promise<string> {
         switch (errno) {
+            case 1052:
+                console.log('Ambigous field defined in query.')
+                return `${what} : A database error occured.`;
             case 1062:
                 return `This ${what} already exist.`;
             case 1452:
-                return `Can't apply foreign key constraint.`;
+                return `${what} : Can't apply foreign key constraint.`;
             default:
                 console.log(info);
                 return `[Error] ${what}: ${info}.`;
