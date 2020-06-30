@@ -37,5 +37,18 @@ export class FlowModel {
         }
     }
 
+    static async GetMonthsFromYear(year: number): Promise<IOut> {
+        try {
+            const rows: any = await con.query(`
+                SELECT MONTH(flow_date) AS 'month', SUM(amount) AS 'amount'
+                FROM flow WHERE YEAR(flow_date) = ${year}
+                GROUP BY month
+                ORDER BY month ASC;`
+            );
+            return { code: 200, success: true, info: '', data: rows };
+        } catch (e) {
+            return DatabaseHelper.errorHandler(e.errno, 'Flow', e.code);
+        }
+    }
 
 }
