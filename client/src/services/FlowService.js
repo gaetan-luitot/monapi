@@ -19,4 +19,12 @@ async function createFlow(_what, _account, _operator, _to, _category, _amount, _
     });
 }
 
+async function loadForYear(year) {
+    return fetch(`${route}/year/${year}`, {
+        method: 'GET',
+        headers: { 'content-type': 'application/json' },
+    });
+}
+
 exports.createFlow = createFlow;
+exports.loadForYear = loadForYear;

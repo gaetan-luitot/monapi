@@ -78,6 +78,16 @@ export default {
                     await document.getElementById('input-flow-operator').dispatchEvent(this.flowCreatedEvent);
                     await document.getElementById('input-flow-category').dispatchEvent(this.flowCreatedEvent);
                     await document.getElementById('input-flow-mean').dispatchEvent(this.flowCreatedEvent);
+                    this.what = '';
+                    this.account = '';
+                    this.operator = '';
+                    this.category = '';
+                    this.to = true;
+                    this.amount = '';
+                    this.mean = '';
+                    const today = new Date(Date.now()).toISOString().split('T')[0];
+                    this.date = today;
+
                     return res;
                 }
                 this.errors.push(res.info);

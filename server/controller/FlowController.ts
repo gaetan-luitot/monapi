@@ -9,4 +9,9 @@ router.post('/', async function (req: any, res: any) {
     return res.json(await FlowService.Create(req.body));
 });
 
+// Get Flow By Month From Year :
+router.get('/year/:year', async function (req: any, res: any) {
+    return res.json(await FlowService.GetMonthsFromYear(req.params));
+});
+
 module.exports = router;
