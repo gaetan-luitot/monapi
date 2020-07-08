@@ -1,6 +1,7 @@
 import { AccountModel } from '../models/AccountModel';
 import { IOut } from '../dtos/IOut';
 import { OperatorChecker } from './checkers/OperatorChecker';
+import { IAccountOutDTO } from '../dtos/IAccountDTO';
 
 export class AccountService {
 
@@ -9,6 +10,20 @@ export class AccountService {
         let data: string[] = [];
         for (let i = 0; i < accounts.data.length; ++i) {
             data.push(accounts.data[i].name);
+        }
+        accounts.data = data;
+        return accounts;
+    }
+
+    static async GetAll(): Promise<IOut> {
+        let accounts: IOut = await AccountModel.GetAll();
+        let data: IAccountOutDTO[] = [];
+        for (let i = 0; i < accounts.data.length; ++i) {
+            data.push({
+                id: accounts.data[i].id,
+                name: accounts.data[i].name,
+                operatorId: accounts.data[i].operatorId,
+            });
         }
         accounts.data = data;
         return accounts;

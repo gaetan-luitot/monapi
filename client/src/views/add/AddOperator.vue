@@ -32,7 +32,7 @@
 
 <script src='../../scripts/add/AddOperator.js'></script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../../assets/scss/autocomplete.scss";
 @import "../../assets/scss/form.scss";
 </style>

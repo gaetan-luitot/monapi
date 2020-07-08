@@ -33,6 +33,6 @@
 </template>
 
 <script src='../../scripts/add/AddCategory.js'></script>
-<style>
+<style scoped>
 @import "../../assets/scss/form.scss";
 </style>

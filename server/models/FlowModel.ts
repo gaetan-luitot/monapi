@@ -5,6 +5,21 @@ import { con } from '../config/Database';
 
 export class FlowModel {
 
+    static async GetYearsForAccount(operatorId: number): Promise<IOut> {
+        try {
+            const rows: any = await con.query(`
+                SELECT YEAR(flow_date) as 'year' FROM flow
+                WHERE user_id = 1 AND (operator_in = ${operatorId} OR operator_out = ${operatorId})
+                GROUP BY year ORDER BY year DESC;`
+            );
+            return { code: 200, success: true, info: '', data: rows };
+        } catch (e) {
+            return DatabaseHelper.errorHandler(e.errno, 'Flow', e.code);
+        }
+    }
+
+
+
     static async Create(flow: IFlowInDTO): Promise<IOut> {
         try {
             const rows: any = await con.query(`

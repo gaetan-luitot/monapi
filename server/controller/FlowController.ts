@@ -9,8 +9,13 @@ router.post('/', async function (req: any, res: any) {
     return res.json(await FlowService.Create(req.body));
 });
 
+// Get Years :
+router.get('/:account/years', async function (req: any, res: any) {
+    return res.json(await FlowService.GetYearsForAccount(req.params));
+});
+
 // Get Flow By Month From Year :
-router.get('/year/:operator/:year', async function (req: any, res: any) {
+router.get('/:account/:year', async function (req: any, res: any) {
     return res.json(await FlowService.GetMonthsFromYear(req.params));
 });
 

@@ -24,6 +24,13 @@ async function getAllAccountsName() {
     });
 }
 
-exports.createAccount = createAccount;
+async function getAllAccounts() {
+    return fetch(`${route}`, {
+        method: 'GET',
+        headers: { 'content-type': 'application/json' },
+    });
+}
+exports.getAllAccounts = getAllAccounts;
 exports.getAllAccountsName = getAllAccountsName;
 exports.getAccountName = getAccountName;
+exports.createAccount = createAccount;

@@ -19,12 +19,20 @@ async function createFlow(_what, _account, _operator, _to, _category, _amount, _
     });
 }
 
-async function loadForYear(year) {
-    return fetch(`${route}/year/1/${year}`, {
+async function loadAccountForYear(accountId, year) {
+    return fetch(`${route}/${accountId}/${year}`, {
+        method: 'GET',
+        headers: { 'content-type': 'application/json' },
+    });
+}
+
+async function getYears(accountId) {
+    return fetch(`${route}/${accountId}/years`, {
         method: 'GET',
         headers: { 'content-type': 'application/json' },
     });
 }
 
 exports.createFlow = createFlow;
-exports.loadForYear = loadForYear;
+exports.loadAccountForYear = loadAccountForYear;
+exports.getYears = getYears;

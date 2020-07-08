@@ -1,7 +1,7 @@
 export interface IAccountOutDTO {
     id: number,
+    name: string,
     operatorId: number,
-    userId: number,
 }
 
 export interface IAccountInDTO {

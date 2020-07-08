@@ -1,21 +1,25 @@
-import View from '../views/view/View.vue';
-import ViewHome from '../views/view/ViewHome.vue';
-import viewYear from '../views/view/ViewYear.vue';
-
 const ViewRoutes = {
     routes: {
         path: '/view',
-        component: View,
+        component: () => import('@/views/View.vue'),
         children: [
             {
                 path: '',
                 name: 'ViewHome',
-                component: ViewHome,
+                component:
+                    () => import('@/views/view/ViewHome.vue'),
+            },
+            {
+                path: ':accountId',
+                name: 'ViewAccount',
+                component:
+                    () => import('@/views/view/ViewAccount.vue'),
             },
             {
                 path: ':accountId/:year',
-                name: 'ViewYear',
-                component: viewYear,
+                name: 'ChartYear',
+                component:
+                    () => import('@/views/view/charts/ChartYear.vue'),
             },
         ],
     },

@@ -36,7 +36,10 @@ export default {
         },
         async loadForYear() {
             const flowByMonth = await (
-                await FlowService.loadForYear(+this.$route.params.year)
+                await FlowService.loadAccountForYear(
+                    +this.$route.params.accountId,
+                    +this.$route.params.year,
+                )
             ).json();
             if (flowByMonth.success) {
                 for (let i = 0; i < flowByMonth.data.inputs.length; i += 1) {
