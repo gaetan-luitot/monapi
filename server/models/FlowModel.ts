@@ -18,8 +18,6 @@ export class FlowModel {
         }
     }
 
-
-
     static async Create(flow: IFlowInDTO): Promise<IOut> {
         try {
             const rows: any = await con.query(`
@@ -74,4 +72,17 @@ export class FlowModel {
         }
     }
 
+    static async GetCatFromYear(operatorId: number, year: number): Promise<IOut> {
+        try {
+            const categories: any = await con.query(`
+                SELECT C.name, SUM(amount) as 'amount' FROM flow F
+                INNER JOIN category C ON C.id = F.category_id
+                WHERE F.operator_out = ${operatorId} AND YEAR(flow_date) = ${year}
+                AND F.user_id = 1 GROUP BY C.name ORDER BY amount;`
+            );
+            return { code: 200, success: true, info: '', data: categories };
+        } catch (e) {
+            return DatabaseHelper.errorHandler(e.errno, 'Flow', e.code);
+        }
+    }
 }

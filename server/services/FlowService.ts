@@ -42,6 +42,19 @@ export class FlowService {
         };
     }
 
+    static async GetCatFromYear(params: any): Promise<IOut> {
+        if(params.year && params.account) {
+            const account: IOut = await AccountModel.GetById(+params.account);
+            if (account.success) {
+                return FlowModel.GetCatFromYear(+account.data.operatorId, +params.year);
+            }
+        }
+
+        return {
+            code: 500, success: false, info: 'Bad params provided.', data: null,
+        };
+    }
+
     static async Create(body: any): Promise<IOut> {
         if (body.what && body.account && body.operator
             && body.category && body.amount && body.mean && body.date
