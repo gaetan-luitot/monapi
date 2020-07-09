@@ -26,6 +26,13 @@ async function loadAccountForYear(accountId, year) {
     });
 }
 
+async function loadCategoriesForYear(accountId, year) {
+    return fetch(`${route}/cat/${accountId}/${year}`, {
+        method: 'GET',
+        headers: { 'content-type': 'application/json' },
+    });
+}
+
 async function getYears(accountId) {
     return fetch(`${route}/${accountId}/years`, {
         method: 'GET',
@@ -36,3 +43,4 @@ async function getYears(accountId) {
 exports.createFlow = createFlow;
 exports.loadAccountForYear = loadAccountForYear;
 exports.getYears = getYears;
+exports.loadCategoriesForYear = loadCategoriesForYear;

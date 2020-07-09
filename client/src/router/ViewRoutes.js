@@ -21,6 +21,12 @@ const ViewRoutes = {
                 component:
                     () => import('@/views/view/charts/ChartYear.vue'),
             },
+            {
+                path: ':accountId/:year',
+                name: 'PieChartYear',
+                component:
+                    () => import('@/views/view/charts/PieChartYear.vue'),
+            },
         ],
     },
 };

@@ -19,4 +19,9 @@ router.get('/:account/:year', async function (req: any, res: any) {
     return res.json(await FlowService.GetMonthsFromYear(req.params));
 });
 
+// Get Flow By Categories From Year :
+router.get('/cat/:account/:year', async function (req: any, res: any) {
+    return res.json(await FlowService.GetCatFromYear(req.params));
+});
+
 module.exports = router;
